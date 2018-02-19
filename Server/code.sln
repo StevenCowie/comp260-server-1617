@@ -1,9 +1,17 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2024
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "code\Server.csproj", "{2F740D3F-F747-4395-9E22-3F1E48288E71}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageTypes", "..\MessageTypes\MessageTypes.csproj", "{BD7690FC-BB78-4A6E-A06B-01CCA47942EB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BD715AD7-8132-445E-8539-58B96BBC8539}"
+	ProjectSection(SolutionItems) = preProject
+		code\Dungeon.cs = code\Dungeon.cs
+		code\Room.cs = code\Room.cs
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,5 +46,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {121DF039-54C3-4DDA-A2B8-97C87483088D}
 	EndGlobalSection
 EndGlobal
