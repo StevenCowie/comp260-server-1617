@@ -68,8 +68,8 @@ namespace Server
             {
                 var room = new Room("Room 7", "You are in room 7");
                 room.north = "Room 10";
-                room.east = "Room 8";
-                room.west = "Room 6";
+                room.east = "Room 6";
+                room.west = "Room 8";
                 roomMap.Add(room.name, room);
             }
             
@@ -168,7 +168,7 @@ namespace Server
 
         public String Process(String key)
         {
-            Console.Clear();
+            //Console.Clear();
 
             //Console.WriteLine(currentRoom.desc);
             //Console.WriteLine("Exits");
@@ -203,7 +203,7 @@ namespace Server
 
                 case "look":
                     //loop straight back
-                    Console.Clear();
+                    //Console.Clear();
                     Thread.Sleep(1000);
                     return returnString;
 
@@ -215,7 +215,7 @@ namespace Server
                     }
 
                     Thread.Sleep(1000);
-                    Console.Clear();
+                    //Console.Clear();
                     return returnString;
 
                 case "go":
@@ -248,7 +248,7 @@ namespace Server
                                     Console.WriteLine("\nERROR");
                                     Console.WriteLine("\nCan not go " + input[1] + " from here");
                                     Console.WriteLine("\nPress any key to continue");
-                                    Console.ReadKey(true);
+                                    //Console.ReadKey(true);
                                 }
                             }
                         }
@@ -269,7 +269,7 @@ namespace Server
                     Console.WriteLine("\nERROR");
                     Console.WriteLine("\nCan not " + key);
                     Console.WriteLine("\nPress any key to continue");
-                    Console.ReadKey(true);
+                    //Console.ReadKey(true);
                     return returnString;
             }
 
