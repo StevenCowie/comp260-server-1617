@@ -36,9 +36,10 @@ namespace Client
 
             while (true)
             {
-                Console.Clear();
+                //Console.Clear();
+                Console.Write("\n> ");
                 String ClientText = Console.ReadLine();
-                //String Msg = ID.ToString() + ClientText" testing, testing, 1,2,3";
+                String Msg = ID.ToString() + ClientText; // " testing, testing, 1,2,3";
                 ID++;
                 ASCIIEncoding encoder = new ASCIIEncoding();
                 byte[] buffer = encoder.GetBytes(ClientText);
@@ -47,6 +48,14 @@ namespace Client
                 {
                     Console.WriteLine("Writing to server: " + ClientText);
                     int bytesSent = s.Send(buffer);
+
+                    buffer = new byte[4096];
+                    int reciever = s.Receive(buffer);
+                    if (reciever > 0)
+                    {
+                        String userCmd = encoder.GetString(buffer, 0, reciever);
+                        Console.WriteLine(userCmd);
+                    }
                 }
                 catch (System.Exception ex)
                 {
@@ -54,7 +63,7 @@ namespace Client
                 }
                 
 
-                Thread.Sleep(1000);
+                //Thread.Sleep(1000);
             }
         }
     }

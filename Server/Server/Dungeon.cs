@@ -168,10 +168,14 @@ namespace Server
 
         public String Process(String key)
         {
+
+            String returnString = "";
+            var input = key.Split(' ');
+            returnString += ("\n> ");
             //Console.Clear();
 
-            //Console.WriteLine(currentRoom.desc);
-            //Console.WriteLine("Exits");
+            //returnString += (currentRoom.desc);
+            //returnString += ("Exits");
             //for (var i = 0; i < currentRoom.exits.Length; i++)
             //{
             //    if (currentRoom.exits[i] != null)
@@ -180,16 +184,10 @@ namespace Server
             //    }
             //}
 
-            //Console.Write("\n> ");
+            //returnString += ("\n> ");
 
             //var key = Console.ReadLine();
 
-
-            String returnString = "";
-
-            var input = key.Split(' ');
-
-            returnString += ("\n> ");
 
             switch (input[0].ToLower())
             {
@@ -208,10 +206,10 @@ namespace Server
                     return returnString;
 
                 case "say":
-                    Console.Write("You say ");
+                    returnString += ("You say ");
                     for (var i = 1; i < input.Length; i++)
                     {
-                        Console.Write(input[i] + " ");
+                        returnString += (input[i] + " ");
                     }
 
                     Thread.Sleep(1000);
@@ -245,16 +243,16 @@ namespace Server
                                 else
                                 {
                                     //handle error
-                                    Console.WriteLine("\nERROR");
-                                    Console.WriteLine("\nCan not go " + input[1] + " from here");
-                                    Console.WriteLine("\nPress any key to continue");
+                                    returnString += ("\nERROR");
+                                    returnString += ("\nCan not go " + input[1] + " from here");
+                                    returnString +=  ("\nPress any key to continue");
                                     //Console.ReadKey(true);
                                 }
                             }
                         }
                     }
-                    Console.WriteLine(currentRoom.desc);
-                    Console.WriteLine("Exits");
+                    returnString += (currentRoom.desc);
+                    returnString += ("Exits");
                     for (var i = 0; i < currentRoom.exits.Length; i++)
                     {
                         if (currentRoom.exits[i] != null)
@@ -266,9 +264,9 @@ namespace Server
 
                 default:
                     //handle error
-                    Console.WriteLine("\nERROR");
-                    Console.WriteLine("\nCan not " + key);
-                    Console.WriteLine("\nPress any key to continue");
+                    returnString += ("\nERROR");
+                    returnString += ("\nCan not " + key);
+                    returnString += ("\nPress any key to continue");
                     //Console.ReadKey(true);
                     return returnString;
             }

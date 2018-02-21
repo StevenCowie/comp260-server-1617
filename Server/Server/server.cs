@@ -43,11 +43,18 @@ namespace Server
                         if (result > 0)
                         {
                             ASCIIEncoding encoder = new ASCIIEncoding();
-                            String recdMsg = encoder.GetString(buffer, 0, result);
+                            String readMsg = encoder.GetString(buffer, 0, result);
 
-                            Console.WriteLine("Received: " + recdMsg);
+                            Console.WriteLine("Received: " + readMsg);
 
-                            dungeon.Process(recdMsg);
+                            var dungeonResult = dungeon.Process(readMsg);
+                            Console.WriteLine(dungeonResult);
+
+                            //dungeon.Process(readMsg);
+
+                            byte[] sendBuffer = encoder.GetBytes(dungeonResult);
+
+                            int bytesSent = newConnection.Send(sendBuffer);
                         }
                     }
                     catch (System.Exception ex)
