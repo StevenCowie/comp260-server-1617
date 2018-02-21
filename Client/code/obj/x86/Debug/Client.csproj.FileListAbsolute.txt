@@ -1,8 +1,0 @@
-C:\Users\steve\Desktop\comp260-server-1617\Client\code\bin\Debug\Client.exe
-C:\Users\steve\Desktop\comp260-server-1617\Client\code\bin\Debug\Client.pdb
-C:\Users\steve\Desktop\comp260-server-1617\Client\code\bin\Debug\MessageTypes.dll
-C:\Users\steve\Desktop\comp260-server-1617\Client\code\bin\Debug\MessageTypes.pdb
-C:\Users\steve\Desktop\comp260-server-1617\Client\code\obj\x86\Debug\Client.csprojResolveAssemblyReference.cache
-C:\Users\steve\Desktop\comp260-server-1617\Client\code\obj\x86\Debug\Client.csproj.CoreCompileInputs.cache
-C:\Users\steve\Desktop\comp260-server-1617\Client\code\obj\x86\Debug\Client.exe
-C:\Users\steve\Desktop\comp260-server-1617\Client\code\obj\x86\Debug\Client.pdb
