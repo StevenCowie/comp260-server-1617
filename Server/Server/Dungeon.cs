@@ -38,6 +38,7 @@ namespace Server
             {
                 var room = new Room("Room 3", "You are in room 3");
                 room.east = "Room 1";
+                room.north = "Room 6";
                 roomMap.Add(room.name, room);
             }
 
@@ -205,6 +206,18 @@ namespace Server
                     Thread.Sleep(1000);
                     return returnString;
 
+                case "Rooms":
+                    returnString += ("\n" + currentRoom.desc);
+                    returnString += ("\nExits");
+                    for (var i = 0; i < currentRoom.exits.Length; i++)
+                    {
+                        if (currentRoom.exits[i] != null)
+                        {
+                            returnString += (" " + Room.exitNames[i] + " ");
+                        }
+                    }
+                    return returnString;
+
                 case "say":
                     returnString += ("You say ");
                     for (var i = 1; i < input.Length; i++)
@@ -257,7 +270,7 @@ namespace Server
                     {
                         if (currentRoom.exits[i] != null)
                         {
-                            Console.Write(Room.exitNames[i] + " ");
+                            returnString += (Room.exitNames[i] + " ");
                         }
                     }
                     return returnString;
