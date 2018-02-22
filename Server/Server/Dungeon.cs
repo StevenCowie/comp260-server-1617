@@ -167,6 +167,22 @@ namespace Server
             currentRoom = roomMap["Room 0"];
         }
 
+        public String sendInfo()
+        {
+            String info = "";
+            info += currentRoom.desc;
+            info += "\nExits\n";
+            for (var i = 0; i < currentRoom.exits.Length; i++)
+            {
+                if (currentRoom.exits[i] != null)
+                {
+                    info += (Room.exitNames[i] + " ");
+                }
+            }
+            return info;
+
+        }
+
         public String Process(String key)
         {
 
