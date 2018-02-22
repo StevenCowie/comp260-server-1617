@@ -20,6 +20,9 @@ namespace Server
         static Dictionary<String, Socket> clientDictionary = new Dictionary<String, Socket>();
         static int clientID = 1;
 
+        static List<Player> PlayerList = new List<Player>();
+        static Dungeon dungeon = new Dungeon();
+
         class ReceiveThreadLaunchInfo
         {
             public ReceiveThreadLaunchInfo(int ID, Socket socket)
@@ -53,7 +56,12 @@ namespace Server
                     String clientName = "client" + clientID;
                     clientDictionary.Add(clientName, newClientSocket);
                     Thread.Sleep(500);
-                    var player = new Player();
+                    var player = new Player
+                    {
+                        dungeonRef = dungeon
+                    };
+                    player.Init();
+                    PlayerList.Add(player);
                     clientID++;
                 }
             }
@@ -65,7 +73,7 @@ namespace Server
             {
                 return clientDictionary[name];
             }
-        } 
+        }
 
         static String GetNameFromSocket(Socket s)
         {
@@ -116,25 +124,27 @@ namespace Server
         {
 
             ASCIIEncoding encoder = new ASCIIEncoding();
-            Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-
-            IPEndPoint ipLocal = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8221);
-			
-            s.Bind(ipLocal);
-            s.Listen(4);
-
-            var dungeon = new Dungeon();
 
             dungeon.Init();
 
-            var myThread = new Thread(acceptClientThread);
-            myThread.Start(s);
+            string ipAdress = "127.0.0.1";
+            int port = 8221;
 
+            Socket serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            IPEndPoint ipLocal = new IPEndPoint(IPAddress.Parse(ipAdress), port);
+
+            serverSocket.Bind(ipLocal);
+            serverSocket.Listen(4);
+
+            Console.WriteLine("Waiting for client ...");
+
+            var myThread = new Thread(acceptClientThread);
+            myThread.Start(serverSocket);
             //Console.WriteLine("Waiting for client ...");
 
             //Socket newConnection = s.Accept();
-            var dungeonResult = (dungeon.sendInfo());
-            byte[] sendBuffer = encoder.GetBytes(dungeonResult); // this is sending back to client
+            //var dungeonResult = (dungeon.sendInfo());
+            //byte[] sendBuffer = encoder.GetBytes(dungeonResult); // this is sending back to client
             byte[] buffer = new byte[4096];
 
             while (true)
@@ -158,12 +168,26 @@ namespace Server
                     Char delimiter = ':';
                     String[] substrings = labelToPrint.Split(delimiter);
 
-                    dungeonResult = dungeon.Process(substrings[1]);
+                    int PlayerID = Int32.Parse(substrings[0]) - 1;
+                    var dungeonResult = dungeon.Process(substrings[1], PlayerList[PlayerID], PlayerID);
                     Console.WriteLine(dungeonResult);
 
-                    sendBuffer = encoder.GetBytes(dungeonResult); // this is sending back to client
+                    byte[] sendBuffer = encoder.GetBytes(dungeonResult); // Send result back to client
 
-                    int bytesSent = GetSocketFromName("client" + substrings[0]).Send(sendBuffer);
+                    String dung = dungeonResult.Substring(0, 6);
+                    if (dung == "Player")
+                    {
+                        for (int i = 1; i <= clientDictionary.Count; i++)
+                        {
+                            int bytesSent = GetSocketFromName("client" + i).Send(sendBuffer);
+                        }
+                    }
+                    else
+                    {
+                        int bytesSent = GetSocketFromName("client" + substrings[0]).Send(sendBuffer);
+                    }
+
+
                 }
 
                 Thread.Sleep(1);
@@ -179,40 +203,39 @@ namespace Server
         }
     }
 }
-
             //if (newConnection != null)
             //{            
             //    while (true)
             //    {
             //        byte[] buffer = new byte[4096];
 
-            //        try
-            //        {
-            //            int result = newConnection.Receive(buffer);
+//        try
+//        {
+//            int result = newConnection.Receive(buffer);
 
-            //            if (result > 0)
-            //            {
-            //                ASCIIEncoding encoder = new ASCIIEncoding();
-            //                String readMsg = encoder.GetString(buffer, 0, result);
+//            if (result > 0)
+//            {
+//                ASCIIEncoding encoder = new ASCIIEncoding();
+//                String readMsg = encoder.GetString(buffer, 0, result);
 
-            //                Console.WriteLine("Received: " + readMsg);
+//                Console.WriteLine("Received: " + readMsg);
 
-            //                var dungeonResult = dungeon.Process(readMsg);
-            //                Console.WriteLine(dungeonResult);
+//                var dungeonResult = dungeon.Process(readMsg);
+//                Console.WriteLine(dungeonResult);
 
-            //                //dungeon.Process(readMsg);
+//                //dungeon.Process(readMsg);
 
-            //                byte[] sendBuffer = encoder.GetBytes(dungeonResult);
+//                byte[] sendBuffer = encoder.GetBytes(dungeonResult);
 
-            //                int bytesSent = newConnection.Send(sendBuffer);
-            //            }
-            //        }
-            //        catch (System.Exception ex)
-            //        {
-            //            Console.WriteLine(ex);    	
-            //        }                    
-                //}
-            //}
-        //}
-    //}
+//                int bytesSent = newConnection.Send(sendBuffer);
+//            }
+//        }
+//        catch (System.Exception ex)
+//        {
+//            Console.WriteLine(ex);    	
+//        }                    
+//}
+//}
+//}
+//}
 //}

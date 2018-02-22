@@ -8,7 +8,7 @@ namespace Server
 {
     public class Dungeon
     {        
-        Dictionary<String, Room> roomMap;
+        public Dictionary<String, Room> roomMap;
 
         Room currentRoom;
 
@@ -74,7 +74,7 @@ namespace Server
                 roomMap.Add(room.name, room);
             }
             
-           {
+            {
                 var room = new Room("Room 8", "You are in room 8");
                 room.south = "Room 9";
                 room.east = "Room 7";
@@ -167,8 +167,9 @@ namespace Server
             currentRoom = roomMap["Room 0"];
         }
 
-        public String sendInfo()
+        public String SendInfo(Player player)
         {
+            currentRoom = player.currentRoom;
             String info = "";
             info += currentRoom.desc;
             info += "\nExits\n";
@@ -183,46 +184,21 @@ namespace Server
 
         }
 
-        public String Process(String key)
+        public string Process(string Key, Player player, int PlayerID)
         {
-
+            currentRoom = player.currentRoom;
             String returnString = "";
-            var input = key.Split(' ');
-            returnString += ("\n> ");
-            //Console.Clear();
-
-            //returnString += (currentRoom.desc);
-            //returnString += ("Exits");
-            //for (var i = 0; i < currentRoom.exits.Length; i++)
-            //{
-            //    if (currentRoom.exits[i] != null)
-            //    {
-            //        Console.Write(Room.exitNames[i] + " ");
-            //    }
-            //}
-
-            //returnString += ("\n> ");
-
-            //var key = Console.ReadLine();
-
+            var input = Key.Split(' ');
 
             switch (input[0].ToLower())
             {
                 case "help":
-                    returnString += "\nCommands are ....\n";
-                    returnString += "help - for this screen\n";
-                    returnString += "look - to look around\n";
-                    returnString += "go [north | south | east | west]  - to travel between locations\n";
-                    returnString += "\nPress any key to continue\n";
-                    return returnString;
-
-                case "look":
-                    //loop straight back
-                    //Console.Clear();
-                    Thread.Sleep(1000);
-                    return returnString;
-
-                case "Rooms":
+                    Console.Clear();
+                    returnString += ("\nCommands are ....");
+                    returnString += ("help - for this screen");
+                    returnString += ("look - to look around");
+                    returnString += ("go [north | south | east | west]  - to travel between locations");
+                    returnString += ("\nPress any key to continue");
                     returnString += ("\n" + currentRoom.desc);
                     returnString += ("\nExits");
                     for (var i = 0; i < currentRoom.exits.Length; i++)
@@ -234,40 +210,44 @@ namespace Server
                     }
                     return returnString;
 
+                case "look":
+                    Thread.Sleep(1000);
+                    returnString += SendInfo(player);
+                    return returnString;
+
                 case "say":
-                    returnString += ("You say ");
+                    returnString += ("Player " + PlayerID + " : ");
                     for (var i = 1; i < input.Length; i++)
                     {
                         returnString += (input[i] + " ");
                     }
 
                     Thread.Sleep(1000);
-                    //Console.Clear();
+                    returnString += SendInfo(player);
                     return returnString;
 
                 case "go":
-                    // is arg[1] sensible?
                     if ((input[1].ToLower() == "north") && (currentRoom.north != null))
                     {
-                        currentRoom = roomMap[currentRoom.north];
+                        player.currentRoom = roomMap[currentRoom.north];
                     }
                     else
                     {
                         if ((input[1].ToLower() == "south") && (currentRoom.south != null))
                         {
-                            currentRoom = roomMap[currentRoom.south];
+                            player.currentRoom = roomMap[currentRoom.south];
                         }
                         else
                         {
                             if ((input[1].ToLower() == "east") && (currentRoom.east != null))
                             {
-                                currentRoom = roomMap[currentRoom.east];
+                                player.currentRoom = roomMap[currentRoom.east];
                             }
                             else
                             {
                                 if ((input[1].ToLower() == "west") && (currentRoom.west != null))
                                 {
-                                    currentRoom = roomMap[currentRoom.west];
+                                    player.currentRoom = roomMap[currentRoom.west];
                                 }
                                 else
                                 {
@@ -275,26 +255,17 @@ namespace Server
                                     returnString += ("\nERROR");
                                     returnString += ("\nCan not go " + input[1] + " from here");
                                     returnString +=  ("\nPress any key to continue");
-                                    //Console.ReadKey(true);
                                 }
                             }
                         }
                     }
-                    returnString += (currentRoom.desc);
-                    returnString += ("Exits");
-                    for (var i = 0; i < currentRoom.exits.Length; i++)
-                    {
-                        if (currentRoom.exits[i] != null)
-                        {
-                            returnString += (Room.exitNames[i] + " ");
-                        }
-                    }
+                    returnString += SendInfo(player);
                     return returnString;
 
                 default:
                     //handle error
                     returnString += ("\nERROR");
-                    returnString += ("\nCan not " + key);
+                    returnString += ("\nCan not " + Key);
                     returnString += ("\nPress any key to continue");
                     //Console.ReadKey(true);
                     return returnString;
