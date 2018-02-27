@@ -22,7 +22,7 @@ namespace Server
             }
 
             {
-                var room = new Room("Room 1", "You are in room 1");
+                var room = new Room("Room 1", "You are in room 1, you've begun your journey!");
                 room.south = "Room 0";
                 room.west = "Room 3";
                 room.east = "Room 2";
@@ -30,20 +30,20 @@ namespace Server
             }
 
             {
-                var room = new Room("Room 2", "You are in room 2");
+                var room = new Room("Room 2", "You are in room 2, you are getting tied already");
                 room.north = "Room 4";
                 roomMap.Add(room.name, room);
             }
 
             {
-                var room = new Room("Room 3", "You are in room 3");
+                var room = new Room("Room 3", "You are in room 3, why are you still going?");
                 room.east = "Room 1";
                 room.north = "Room 6";
                 roomMap.Add(room.name, room);
             }
 
             {
-                var room = new Room("Room 4", "You are in room 4");
+                var room = new Room("Room 4", "You are in room 4, long way to go ;) ");
                 room.south = "Room 2";
                 room.west = "Room 5";
                 room.north = "Room 11";
@@ -75,15 +75,14 @@ namespace Server
             }
             
             {
-                var room = new Room("Room 8", "You are in room 8");
+                var room = new Room("Room 8", "You are in room 8, you hear a strange noise coming from the South");
                 room.south = "Room 9";
                 room.east = "Room 7";
                 roomMap.Add(room.name, room);
             }
             
             {
-                var room = new Room("Room 9", "You are in room 9");
-                room.north = "Room 8";
+                var room = new Room("Room 9", "You've been mauled by lions, you die. GG.");
                 roomMap.Add(room.name, room);
             }
             
@@ -118,7 +117,7 @@ namespace Server
             }
             
             {
-                var room = new Room("Room 14", "You are in room 14");
+                var room = new Room("Room 14", "You are in room 14, you feel a cold breeze coming from the North, do you go and check it out?");
                 room.north = "Room 16";
                 room.west = "Room 15";
                 room.east = "Room 13";
@@ -126,19 +125,18 @@ namespace Server
             }
             
             {
-                var room = new Room("Room 15", "You are in room 15");
+                var room = new Room("Room 15", "You are in room 15, you realize that you're all alone up here");
                 room.south = "Room 10";
                 roomMap.Add(room.name, room);                
             }
             
             {
-                var room = new Room("Room 16", "You are in room 16");
-                room.south = "Room 14";
+                var room = new Room("Room 16", "The cold breeze hits you, you slip and fall into the pit of doom, GG.");
                 roomMap.Add(room.name, room);                
             }
             
             {
-                var room = new Room("Room 17", "You are in room 17");
+                var room = new Room("Room 17", "You are in room 17, this is getting boring");
                 room.south = "Room 18";
                 room.north = "Room 19";
                 room.west = "Room 12";
@@ -146,21 +144,20 @@ namespace Server
             }
             
             {
-                var room = new Room("Room 18", "You are in room 18");
+                var room = new Room("Room 18", "You are in room 18, you wonder what you are doing here");
                 room.north = "Room 17";
                 roomMap.Add(room.name, room);                
             }
             
             {
-                var room = new Room("Room 19", "You are in room 19");
+                var room = new Room("Room 19", "You are in room 19, you hear screams from the East");
                 room.south = "Room 17";
                 room.east = "Room 20";
                 roomMap.Add(room.name, room);                
             }
             
             {
-                var room = new Room("Room 20", "You are in room 20");
-                room.west = "Room 19";
+                var room = new Room("Room 20", "You realize the screams were people partying, you have entered the promised land, enjoy it while you can.");
                 roomMap.Add(room.name, room);                
             }
 
