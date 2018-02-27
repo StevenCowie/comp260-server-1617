@@ -44,25 +44,27 @@ namespace Client
                 ASCIIEncoding encoder = new ASCIIEncoding();
                 byte[] buffer = encoder.GetBytes(ClientText);
 
-                try
+                if (ClientText != "")
                 {
-                    Console.WriteLine("Writing to server: " + ClientText);
-                    int bytesSent = s.Send(buffer);
-
-                    buffer = new byte[4096];
-                    int reciever = s.Receive(buffer);
-                    if (reciever > 0)
+                    try
                     {
-                        String userCmd = encoder.GetString(buffer, 0, reciever);
-                        Console.WriteLine(userCmd);
-                    }
-                }
-                catch (System.Exception ex)
-                {
-                    Console.WriteLine(ex);	
-                }
-                
+                        Console.WriteLine("Writing to server: " + ClientText);
+                        int bytesSent = s.Send(buffer);
 
+                        buffer = new byte[4096];
+                        int reciever = s.Receive(buffer);
+                        if (reciever > 0)
+                        {
+                            String userCmd = encoder.GetString(buffer, 0, reciever);
+                            Console.WriteLine(userCmd);
+                        }
+                    }
+                    catch (System.Exception ex)
+                    {
+                        Console.WriteLine(ex);
+                    }
+
+                }
                 //Thread.Sleep(1000);
             }
         }
