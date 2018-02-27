@@ -33,10 +33,15 @@ namespace Client
 			}
 
             int ID = 0;
-
+            bool initialMsg = false;
             while (true)
             {
                 //Console.Clear();
+            if (initialMsg == false)
+            { 
+                Console.WriteLine("Type help to begin the adventure");
+                    initialMsg = true;
+            }
                 Console.Write("\n> ");
                 String ClientText = Console.ReadLine();
                 String Msg = ID.ToString() + ClientText; // " testing, testing, 1,2,3";
