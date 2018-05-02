@@ -1,0 +1,20 @@
+C:\Users\Asus\Downloads\Lecture 09\client-server review\Windows Client\Windows Client\bin\Debug\Form Client.exe.config
+C:\Users\Asus\Downloads\Lecture 09\client-server review\Windows Client\Windows Client\bin\Debug\Form Client.exe
+C:\Users\Asus\Downloads\Lecture 09\client-server review\Windows Client\Windows Client\bin\Debug\Form Client.pdb
+C:\Users\Asus\Downloads\Lecture 09\client-server review\Windows Client\Windows Client\obj\Debug\Windows Client.csprojResolveAssemblyReference.cache
+C:\Users\Asus\Downloads\Lecture 09\client-server review\Windows Client\Windows Client\obj\Debug\Part_03_FormClient.Form1.resources
+C:\Users\Asus\Downloads\Lecture 09\client-server review\Windows Client\Windows Client\obj\Debug\FormClient.Properties.Resources.resources
+C:\Users\Asus\Downloads\Lecture 09\client-server review\Windows Client\Windows Client\obj\Debug\Windows Client.csproj.GenerateResource.Cache
+C:\Users\Asus\Downloads\Lecture 09\client-server review\Windows Client\Windows Client\obj\Debug\Windows Client.csproj.CoreCompileInputs.cache
+C:\Users\Asus\Downloads\Lecture 09\client-server review\Windows Client\Windows Client\obj\Debug\Form Client.exe
+C:\Users\Asus\Downloads\Lecture 09\client-server review\Windows Client\Windows Client\obj\Debug\Form Client.pdb
+C:\Users\Asus\Documents\Uni Work\2nd Year\260\comp260-server-1617\Redundant\client-server review\Windows Client\Windows Client\bin\Debug\Form Client.exe.config
+C:\Users\Asus\Documents\Uni Work\2nd Year\260\comp260-server-1617\Redundant\client-server review\Windows Client\Windows Client\bin\Debug\Form Client.exe
+C:\Users\Asus\Documents\Uni Work\2nd Year\260\comp260-server-1617\Redundant\client-server review\Windows Client\Windows Client\bin\Debug\Form Client.pdb
+C:\Users\Asus\Documents\Uni Work\2nd Year\260\comp260-server-1617\Redundant\client-server review\Windows Client\Windows Client\obj\Debug\Windows Client.csprojResolveAssemblyReference.cache
+C:\Users\Asus\Documents\Uni Work\2nd Year\260\comp260-server-1617\Redundant\client-server review\Windows Client\Windows Client\obj\Debug\Part_03_FormClient.Form1.resources
+C:\Users\Asus\Documents\Uni Work\2nd Year\260\comp260-server-1617\Redundant\client-server review\Windows Client\Windows Client\obj\Debug\FormClient.Properties.Resources.resources
+C:\Users\Asus\Documents\Uni Work\2nd Year\260\comp260-server-1617\Redundant\client-server review\Windows Client\Windows Client\obj\Debug\Windows Client.csproj.GenerateResource.Cache
+C:\Users\Asus\Documents\Uni Work\2nd Year\260\comp260-server-1617\Redundant\client-server review\Windows Client\Windows Client\obj\Debug\Windows Client.csproj.CoreCompileInputs.cache
+C:\Users\Asus\Documents\Uni Work\2nd Year\260\comp260-server-1617\Redundant\client-server review\Windows Client\Windows Client\obj\Debug\Form Client.exe
+C:\Users\Asus\Documents\Uni Work\2nd Year\260\comp260-server-1617\Redundant\client-server review\Windows Client\Windows Client\obj\Debug\Form Client.pdb

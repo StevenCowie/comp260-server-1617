@@ -1,0 +1,12 @@
+D:\comp260-server-1617\Server\Server\bin\Debug\Server.exe
+D:\comp260-server-1617\Server\Server\bin\Debug\Server.pdb
+D:\comp260-server-1617\Server\Server\obj\x86\Debug\Server.csprojResolveAssemblyReference.cache
+D:\comp260-server-1617\Server\Server\obj\x86\Debug\Server.csproj.CoreCompileInputs.cache
+D:\comp260-server-1617\Server\Server\obj\x86\Debug\Server.exe
+D:\comp260-server-1617\Server\Server\obj\x86\Debug\Server.pdb
+D:\comp260-server-1617NEW\Server\Server\bin\Debug\Server.exe
+D:\comp260-server-1617NEW\Server\Server\bin\Debug\Server.pdb
+D:\comp260-server-1617NEW\Server\Server\obj\x86\Debug\Server.csprojResolveAssemblyReference.cache
+D:\comp260-server-1617NEW\Server\Server\obj\x86\Debug\Server.csproj.CoreCompileInputs.cache
+D:\comp260-server-1617NEW\Server\Server\obj\x86\Debug\Server.exe
+D:\comp260-server-1617NEW\Server\Server\obj\x86\Debug\Server.pdb
