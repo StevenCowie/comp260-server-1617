@@ -102,7 +102,7 @@ namespace MUDServer
             s.Bind(ipLocal);
             s.Listen(4);
 
-            SUD.Dungeon dungeon = new SUD.Dungeon();
+            MUDServer.Dungeon dungeon = new MUDServer.Dungeon();
             dungeon.Init();
 
 

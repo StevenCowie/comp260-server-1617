@@ -30,6 +30,8 @@ namespace MUDServer
         
         String currentRoom="";
             public Dictionary<Socket, Room> socketToRoomLookup;
+            public Dictionary<String, Room> roomMap;
+            //var roomMap = new Dictionary<string, Room>();
         public void Init()
         {
             var roomMap = new Dictionary<string, Room>();
