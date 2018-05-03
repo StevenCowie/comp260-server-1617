@@ -158,9 +158,12 @@ namespace SUD
 
                 for (var i = 0; i < temp.Length; i++)
                 {
-                    if (reader[temp[i]] != null)
+                    string result = reader[temp[i]] as String;
+
+
+                    if (result != "") 
                     {
-                        Console.Write(reader[temp[i]] + " ");
+                        Console.WriteLine(reader[temp[i]] + " " + temp[i]);
                     }
                 }
             }
@@ -208,7 +211,59 @@ namespace SUD
                     while (reader.Read())
                     {
                         Console.WriteLine("Name: " + reader["name"] + "\tdesc: " + reader["desc"]);
+                        Console.WriteLine(reader["desc"]);
+                        Console.WriteLine("Exits");
+
+                        String[] temp = { "north", "south", "east", "west" };
+
+                        for (var i = 0; i < temp.Length; i++)
+                        {
+                            if (reader[temp[i]] != null)
+                            {
+                                Console.Write(reader[temp[i]] + " ");
+                            }
+                        }
+
+                        if ((input[1].ToLower() == "north") && (reader["north"] != null))
+                        {
+                            currentRoom = reader["north"].ToString();
+                        }
+                        else
+                        {
+                            if ((input[1].ToLower() == "south") && (reader["south"] != null))
+                            {
+                                currentRoom = reader["south"].ToString();
+                            }
+                            else
+                            {
+                                if ((input[1].ToLower() == "east") && (reader["east"] != null))
+                                {
+                                    currentRoom = reader["east"].ToString();
+                                }
+                                else
+                                {
+                                    if ((input[1].ToLower() == "west") && (reader["west"] != null))
+                                    {
+                                        currentRoom = reader["west"].ToString();
+                                    }
+                                    else
+                                    {
+                                        //handle error
+                                        Console.WriteLine("\nERROR");
+                                        Console.WriteLine("\nCan not go " + input[1] + " from here");
+                                        Console.WriteLine("\nPress any key to continue");
+                                        Console.ReadKey(true);
+                                    }
+                                }
+                            }
+                        }
+
                     }
+
+                    //if ((input[1].ToLower() == "north") && (reader["north"] != null))
+                    //{
+                    //    currentRoom = reader["north"].ToString();
+                    //}
 
                     Console.Write("");
 
