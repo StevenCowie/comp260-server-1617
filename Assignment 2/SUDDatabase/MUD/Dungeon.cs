@@ -30,10 +30,10 @@ namespace MUDServer
         
         String currentRoom="";
             public Dictionary<Socket, Room> socketToRoomLookup;
-            public Dictionary<String, Room> roomMap;
             //var roomMap = new Dictionary<string, Room>();
         public void Init()
         {
+            socketToRoomLookup = new Dictionary<Socket, Room>();
             var roomMap = new Dictionary<string, Room>();
 
             {
@@ -325,7 +325,12 @@ namespace MUDServer
         {
             if (socketToRoomLookup.ContainsKey(client) == false)
             {
-                socketToRoomLookup[client] = roomMap[room];
+                var command = new sqliteCommand("select * from  table_rooms where name == '" + room + "'", conn);
+                var reader = command.ExecuteReader();
+
+                reader.Read();
+                Room currentRoom = new Room(reader["name"] as String, reader["decription"] as String);
+                socketToRoomLookup[client] = currentRoom;
             }
         }
 
