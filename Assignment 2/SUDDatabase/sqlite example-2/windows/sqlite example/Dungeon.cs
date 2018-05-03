@@ -146,13 +146,22 @@ namespace SUD
         {
             Console.Clear();
 
-            Console.WriteLine(currentRoom.desc);
-            Console.WriteLine("Exits");
-            for (var i = 0; i < currentRoom.exits.Length; i++)
-            {
-                if (currentRoom.exits[i] != null)
+            var command = new sqliteCommand("select * from  table_rooms where name == '" + currentRoom + "'", conn);
+            var reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {                
+                Console.WriteLine(reader["desc"]);
+                Console.WriteLine("Exits");
+
+                String[] temp = { "north", "south", "east", "west" };
+
+                for (var i = 0; i < temp.Length; i++)
                 {
-                    Console.Write(Room.exitNames[i] + " ");
+                    if (reader[temp[i]] != null)
+                    {
+                        Console.Write(reader[temp[i]] + " ");
+                    }
                 }
             }
 
@@ -193,6 +202,18 @@ namespace SUD
 
                 case "go":
                     // is arg[1] sensible?
+                    command = new sqliteCommand("select * from  table_rooms where name == '" + currentRoom + "'", conn);
+                    reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        Console.WriteLine("Name: " + reader["name"] + "\tdesc: " + reader["desc"]);
+                    }
+
+                    Console.Write("");
+
+#if false
+
                     if ((input[1].ToLower() == "north") && (currentRoom.north != null))
                     {
                         currentRoom = roomMap[currentRoom.north];
@@ -226,6 +247,8 @@ namespace SUD
                             }
                         }
                     }
+#endif
+
                     break;
 
                 default:
