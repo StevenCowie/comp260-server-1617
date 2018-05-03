@@ -18,3 +18,13 @@ D:\Other\Computing for Games\Year 2\Second Semester\COMP260 - Distributed System
 D:\Other\Computing for Games\Year 2\Second Semester\COMP260 - Distributed Systems\Lecture 09\client-server review\Windows Client\Windows Client\obj\Debug\Windows Client.csproj.CoreCompileInputs.cache
 D:\Other\Computing for Games\Year 2\Second Semester\COMP260 - Distributed Systems\Lecture 09\client-server review\Windows Client\Windows Client\obj\Debug\Form Client.exe
 D:\Other\Computing for Games\Year 2\Second Semester\COMP260 - Distributed Systems\Lecture 09\client-server review\Windows Client\Windows Client\obj\Debug\Form Client.pdb
+D:\comp260-server-1617\Assignment 2\Windows Client\Windows Client\bin\Debug\Form Client.exe.config
+D:\comp260-server-1617\Assignment 2\Windows Client\Windows Client\bin\Debug\Form Client.exe
+D:\comp260-server-1617\Assignment 2\Windows Client\Windows Client\bin\Debug\Form Client.pdb
+D:\comp260-server-1617\Assignment 2\Windows Client\Windows Client\obj\Debug\Windows Client.csprojResolveAssemblyReference.cache
+D:\comp260-server-1617\Assignment 2\Windows Client\Windows Client\obj\Debug\Part_03_FormClient.Form1.resources
+D:\comp260-server-1617\Assignment 2\Windows Client\Windows Client\obj\Debug\FormClient.Properties.Resources.resources
+D:\comp260-server-1617\Assignment 2\Windows Client\Windows Client\obj\Debug\Windows Client.csproj.GenerateResource.Cache
+D:\comp260-server-1617\Assignment 2\Windows Client\Windows Client\obj\Debug\Windows Client.csproj.CoreCompileInputs.cache
+D:\comp260-server-1617\Assignment 2\Windows Client\Windows Client\obj\Debug\Form Client.exe
+D:\comp260-server-1617\Assignment 2\Windows Client\Windows Client\obj\Debug\Form Client.pdb

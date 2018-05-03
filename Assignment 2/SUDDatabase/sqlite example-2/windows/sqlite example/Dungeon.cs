@@ -226,25 +226,25 @@ namespace SUD
 
                         if ((input[1].ToLower() == "north") && (reader["north"] != null))
                         {
-                            currentRoom = reader["north"].ToString();
+                            currentRoom = reader["north"] as String;
                         }
                         else
                         {
                             if ((input[1].ToLower() == "south") && (reader["south"] != null))
                             {
-                                currentRoom = reader["south"].ToString();
+                                currentRoom = reader["south"] as String;
                             }
                             else
                             {
                                 if ((input[1].ToLower() == "east") && (reader["east"] != null))
                                 {
-                                    currentRoom = reader["east"].ToString();
+                                    currentRoom = reader["east"] as String;
                                 }
                                 else
                                 {
                                     if ((input[1].ToLower() == "west") && (reader["west"] != null))
                                     {
-                                        currentRoom = reader["west"].ToString();
+                                        currentRoom = reader["west"] as String;
                                     }
                                     else
                                     {
