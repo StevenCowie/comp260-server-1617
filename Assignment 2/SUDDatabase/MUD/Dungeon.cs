@@ -329,7 +329,7 @@ namespace MUDServer
                 var reader = command.ExecuteReader();
 
                 reader.Read();
-                Room currentRoom = new Room(reader["name"] as String, reader["decription"] as String);
+                Room currentRoom = new Room(reader["name"] as String, reader["desc"] as String);
                 socketToRoomLookup[client] = currentRoom;
             }
         }
