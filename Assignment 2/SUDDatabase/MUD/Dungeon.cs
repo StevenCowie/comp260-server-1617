@@ -24,7 +24,7 @@ namespace MUDServer
 {
     public class Dungeon
     {
-        sqliteConnection conn = null;
+        public sqliteConnection conn = null;
         string databaseName = "data.database";
 
         
@@ -343,17 +343,26 @@ namespace MUDServer
         }
 
         public String RoomDescription(Socket client)
-        {
+        { 
+            var command = new sqliteCommand("select * from  table_rooms where name == '" + socketToRoomLookup[client].name + "'", conn);
+            var reader = command.ExecuteReader();
             String desc = "";
-
-            desc += socketToRoomLookup[client].desc + "\n";
-            desc += "Exits" + "\n";
-            for (var i = 0; i < socketToRoomLookup[client].exits.Length; i++)
+            while (reader.Read())
             {
-                if (socketToRoomLookup[client].exits[i] != null)
+                desc += reader["desc"] + "\nExits: \n";
+                String[] Temp = { "north", "west", "south", "east" };
+                for (var i = 0; i<Temp.Length; i++)
                 {
-                    desc += Room.exitNames[i] + " ";
-                }
+                    String result = reader[Temp[i]] as String;
+
+                    if (result != "")
+                    {
+                        desc += Temp[i] + " ";
+                    }
+
+}
+
+
             }
 
             var players = 0;

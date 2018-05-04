@@ -218,84 +218,90 @@ namespace MUDServer
 
                                 break;
 
-                            //case "go":
-                            //    // is arg[1] sensible?
+                            case "go":
+                                // is arg[1] sensible?
 
-                            //    bool newDestination = false;
-                            //    var oldRoom = dungeon.socketToRoomLookup[clientMessage.client];                                        
+                                bool newDestination = false;
+                                var oldRoom = dungeon.socketToRoomLookup[clientMessage.client];
+                                var sqlCommand = new sqliteCommand("select north, south, east, west from  table_rooms where name == '" + oldRoom.name + "'", dungeon.conn);
 
-                            //    if ((input[1].ToLower() == "north") && (dungeon.socketToRoomLookup[clientMessage.client].north != null))
-                            //    {
-                            //        dungeon.socketToRoomLookup[clientMessage.client] = dungeon.roomMap[dungeon.socketToRoomLookup[clientMessage.client].north];
-                            //        newDestination = true;
-                            //    }
-                            //    else
-                            //    {
-                            //        if ((input[1].ToLower() == "south") && (dungeon.socketToRoomLookup[clientMessage.client].south != null))
-                            //        {
-                            //            dungeon.socketToRoomLookup[clientMessage.client] = dungeon.roomMap[dungeon.socketToRoomLookup[clientMessage.client].south];
-                            //            newDestination = true;
-                            //        }
-                            //        else
-                            //        {
-                            //            if ((input[1].ToLower() == "east") && (dungeon.socketToRoomLookup[clientMessage.client].east != null))
-                            //            {
-                            //                dungeon.socketToRoomLookup[clientMessage.client] = dungeon.roomMap[dungeon.socketToRoomLookup[clientMessage.client].east];
-                            //                newDestination = true;
-                            //            }
-                            //            else
-                            //            {
-                            //                if ((input[1].ToLower() == "west") && (dungeon.socketToRoomLookup[clientMessage.client].west != null))
-                            //                {
-                            //                    dungeon.socketToRoomLookup[clientMessage.client] = dungeon.roomMap[dungeon.socketToRoomLookup[clientMessage.client].west];
-                            //                    newDestination = true;
-                            //                }
-                            //            }
-                            //        }
-                            //    }
+                                var reader = sqlCommand.ExecuteReader();
 
-                                //if (newDestination == false)
-                                //{
-                                //    //handle error
-                                //    outputToUser += "\nERROR";
-                                //    outputToUser += "\nCan not go " + input[1] + " from here";
-                                //    outputToUser += "\n";
-                                //}
-                                //else
-                                //{
-                                //    var newRoom = dungeon.socketToRoomLookup[clientMessage.client];
+                                reader.Read();
 
-                                //    outputToUser = dungeon.RoomDescription(clientMessage.client);
 
-                                //    foreach (var kvp in dungeon.socketToRoomLookup)
-                                //    {
-                                //        if ((kvp.Key != clientMessage.client)
-                                //            && (kvp.Value == oldRoom)
-                                //            )
-                                //        {
-                                //            try
-                                //            {
-                                //                kvp.Key.Send(encoder.GetBytes("A dungeoneer has left this room\n"));
-                                //            }
-                                //            catch (Exception)
-                                //            { }
-                                //        }
 
-                                //        if ((kvp.Key != clientMessage.client)
-                                //            && (kvp.Value == newRoom)
-                                //            )
-                                //        {
-                                //            try
-                                //            {
-                                //                kvp.Key.Send(encoder.GetBytes("A dungeoneer has entered this room\n"));
-                                //            }
-                                //            catch (Exception)
-                                //            { }
-                                //        }
-                                //    }
-                                //}
 
-                                //break;
+
+                                newDestination = true;
+                                try
+                                {
+                                    var goToRoom = reader[input[1].ToLower()] as String;
+
+                                    sqlCommand = new sqliteCommand("select * from  table_rooms where name == '" + goToRoom + "'", dungeon.conn);
+
+                                    reader = sqlCommand.ExecuteReader();
+
+                                    reader.Read();
+                                    Room nextRoom = new Room(goToRoom, reader["desc"] as String);
+
+
+                                    if (goToRoom == "")
+                                    {
+                                        newDestination = false;
+                                    }
+                                    dungeon.socketToRoomLookup[clientMessage.client] = nextRoom;
+
+
+
+                                }
+                                catch (Exception ex)
+                                {
+                                    newDestination = false;
+                                }
+
+                                if (newDestination == false)
+                                {
+                                    //handle error
+                                    outputToUser += "\nERROR";
+                                    outputToUser += "\nCan not go " + input[1] + " from here";
+                                    outputToUser += "\n";
+                                }
+                                else
+                                {
+                                    var newRoom = dungeon.socketToRoomLookup[clientMessage.client];
+
+                                    outputToUser = dungeon.RoomDescription(clientMessage.client);
+
+                                    foreach (var kvp in dungeon.socketToRoomLookup)
+                                    {
+                                        if ((kvp.Key != clientMessage.client)
+                                            && (kvp.Value == oldRoom)
+                                            )
+                                        {
+                                            try
+                                            {
+                                                kvp.Key.Send(encoder.GetBytes("A dungeoneer has left this room\n"));
+                                            }
+                                            catch (Exception)
+                                            { }
+                                        }
+
+                                        if ((kvp.Key != clientMessage.client)
+                                            && (kvp.Value == newRoom)
+                                            )
+                                        {
+                                            try
+                                            {
+                                                kvp.Key.Send(encoder.GetBytes("A dungeoneer has entered this room\n"));
+                                            }
+                                            catch (Exception)
+                                            { }
+                                        }
+                                    }
+                                }
+
+                                break;
 
                             default:
                                 //handle error
