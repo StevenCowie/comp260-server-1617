@@ -370,7 +370,7 @@ namespace MUDServer
             foreach (var kvp in socketToRoomLookup)
             {
                 if ((kvp.Key != client)
-                  && (kvp.Value == socketToRoomLookup[client])
+                  && (kvp.Value != socketToRoomLookup[client])
                   )
                 {
                     players++;

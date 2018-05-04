@@ -190,31 +190,31 @@ namespace MUDServer
 
                                 outputToUser += "\n";
 
+                                
+                                String messageToSend = "Someone says: ";
+
+                                for (var i = 1; i < input.Length; i++)
                                 {
-                                    String messageToSend = "Someone says: ";
+                                    messageToSend += input[i] + " ";
+                                }
 
-                                    for (var i = 1; i < input.Length; i++)
+                                outputBuffer = encoder.GetBytes(messageToSend);
+
+                                foreach (var kvp in dungeon.socketToRoomLookup)
+                                {
+                                    if ((kvp.Key != clientMessage.client)
+                                        && (kvp.Value != dungeon.socketToRoomLookup[clientMessage.client])
+                                        )
                                     {
-                                        messageToSend += input[i] + " ";
-                                    }
-
-                                    outputBuffer = encoder.GetBytes(messageToSend);
-
-                                    foreach (var kvp in dungeon.socketToRoomLookup)
-                                    {
-                                        if ((kvp.Key != clientMessage.client)
-                                            && (kvp.Value == dungeon.socketToRoomLookup[clientMessage.client])
-                                            )
+                                        try
                                         {
-                                            try
-                                            {
-                                                kvp.Key.Send(outputBuffer);
-                                            }
-                                            catch (Exception)
-                                            { }
+                                            kvp.Key.Send(outputBuffer);
                                         }
+                                        catch (Exception)
+                                        { }
                                     }
                                 }
+                                
 
                                 break;
 
