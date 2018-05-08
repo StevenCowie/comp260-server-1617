@@ -42,6 +42,7 @@ namespace MUDServer
             public Socket socket;
         }
 
+        //accepts client
         static void acceptClientThread(Object obj)
         {
             Socket s = obj as Socket;
@@ -62,7 +63,7 @@ namespace MUDServer
                 Console.WriteLine("Client added");
             }
         }
-
+        //gets player socket and process information they send
         static void clientReceiveThread(Object obj)
         {
             ReceiveThreadLaunchInfo receiveInfo = obj as ReceiveThreadLaunchInfo;
@@ -91,23 +92,25 @@ namespace MUDServer
             }
         }
 
-
+        //Main loop
         static void Main(string[] args)
         {
             Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-
+            //IP address it runs from
 			Console.WriteLine ("Running from: " + "'" + args [0] +"'");
 			IPEndPoint ipLocal = new IPEndPoint(IPAddress.Parse(args[0]), 8222);
 
             s.Bind(ipLocal);
             s.Listen(4);
 
+            //cretaes new instance of dungeon
             Dungeon dungeon = new Dungeon();
             dungeon.Init();
 
 
             Console.WriteLine("Waiting for clients ...");
 
+            //new thread for new clients
             var myThread = new Thread(acceptClientThread);
             myThread.Start(s);
 
@@ -124,6 +127,7 @@ namespace MUDServer
                     {
                         try
                         {
+                            //sets player to room 0 the starting room
                             dungeon.SetClientInRoom(command.client, "Room 0");
                             String dungeonOutput = dungeon.RoomDescription(command.client);
 
@@ -131,6 +135,7 @@ namespace MUDServer
 
                             try
                             {
+                                //sends output from dungeon
                                 command.client.Send(encoder.GetBytes(dungeonOutput));
                             }
                             catch (Exception) { }
@@ -157,16 +162,18 @@ namespace MUDServer
                         }
                     }
 
+                    // decides on what to do based on client response
                     if(command is ClientMessage)
                     {
                         var clientMessage = command as ClientMessage;                            
                             
                         String outputToUser = dungeon.RoomDescription(clientMessage.client);
-
+                        //splits input message
                         String[] input = clientMessage.message.Split(' ');
 
                         switch (input[0].ToLower())
                         {
+                            //gives users list to commands
                             case "help":
                                 outputToUser += "\nCommands are ....\n";
                                 outputToUser += "help - for this screen\n";
@@ -178,10 +185,12 @@ namespace MUDServer
                                 break;
 
                             case "look":
+                                //prints other dungeon users
                                 outputToUser = dungeon.RoomDescription(clientMessage.client);
                                 break;
 
                             case "say":
+                                //used for chat
                                 outputToUser += "\nYou say: ";
                                 for (var i = 1; i < input.Length; i++)
                                 {
@@ -219,6 +228,7 @@ namespace MUDServer
                                 break;
 
                             case "go":
+                                //allows user to navigate dungeon
                                 // is arg[1] sensible?
 
                                 bool newDestination = false;
@@ -229,10 +239,7 @@ namespace MUDServer
 
                                 reader.Read();
 
-
-
-
-
+                                //checks to see if player is moving to a new room
                                 newDestination = true;
                                 try
                                 {
@@ -269,10 +276,11 @@ namespace MUDServer
                                 }
                                 else
                                 {
+                                    //sends room description to users
                                     var newRoom = dungeon.socketToRoomLookup[clientMessage.client];
 
                                     outputToUser = dungeon.RoomDescription(clientMessage.client);
-
+                                    //supposed to be used for telling users if users player has left/entered the room.
                                     foreach (var kvp in dungeon.socketToRoomLookup)
                                     {
                                         if ((kvp.Key != clientMessage.client)
@@ -318,7 +326,7 @@ namespace MUDServer
                         }
                         catch (Exception) { }                                                    
                     }
-
+                    //if client is lost it tells users a client left
                     if(command is ClientLost)
                     {
                         var clientMessage = command as ClientLost;

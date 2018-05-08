@@ -6,6 +6,8 @@ using System.Threading;
 
 using System.Net;
 using System.Net.Sockets;
+
+//If statement for building differently on windows and linux
 #if TARGET_LINUX
 using Mono.Data.Sqlite;
 using sqliteConnection 	=Mono.Data.Sqlite.SqliteConnection;
@@ -25,9 +27,10 @@ namespace MUDServer
     public class Dungeon
     {
         public sqliteConnection conn = null;
+        //New database name
         string databaseName = "data.database";
 
-        
+        //Dictionary for room lookup
         String currentRoom="";
             public Dictionary<Socket, Room> socketToRoomLookup;
             //var roomMap = new Dictionary<string, Room>();
@@ -76,10 +79,11 @@ namespace MUDServer
                 roomMap.Add(room.name, room);
             }
 
-            //currentRoom = roomMap["Room 0"];
+            //Creates dungeon based on room map
 
             try
             {
+                //creates new database
                 sqliteConnection.CreateFile(databaseName);
 
                 conn = new sqliteConnection("Data Source=" + databaseName + ";Version=3;FailIfMissing=True");
@@ -119,6 +123,7 @@ namespace MUDServer
                 }
 
                 //command = new SQLiteCommand("drop table table_phonenumbers", conn);
+                //Reads data fron database
                 try
                 {
                     Console.WriteLine("");
@@ -133,6 +138,7 @@ namespace MUDServer
                     reader.Close();
                     Console.WriteLine("");
                 }
+                //throws exceptions if problem with database
                 catch (Exception ex)
                 {
                     Console.WriteLine("Failed to display DB");
@@ -150,7 +156,7 @@ namespace MUDServer
         public void Process()
         {
             Console.Clear();
-
+            //prints current room, description and exits
             var command = new sqliteCommand("select * from  table_rooms where name == '" + currentRoom + "'", conn);
             var reader = command.ExecuteReader();
 
@@ -179,6 +185,7 @@ namespace MUDServer
 
             var input = key.Split(' ');
 
+            //player commands
             switch (input[0].ToLower())
             {
                 case "help":
@@ -210,6 +217,7 @@ namespace MUDServer
 
                 case "go":
                     // is arg[1] sensible?
+                    //decides if the player can move in certain directions by seeing if reading isn't = null
                     command = new sqliteCommand("select * from  table_rooms where name == '" + currentRoom + "'", conn);
                     reader = command.ExecuteReader();
 
@@ -321,6 +329,7 @@ namespace MUDServer
             }
 
         }
+        //sets players in room and where they can move to
         public void SetClientInRoom(Socket client, String room)
         {
             if (socketToRoomLookup.ContainsKey(client) == false)
@@ -334,6 +343,7 @@ namespace MUDServer
             }
         }
 
+        //removes player from player dictionary
         public void RemoveClient(Socket client)
         {
             if (socketToRoomLookup.ContainsKey(client) == true)
@@ -342,6 +352,7 @@ namespace MUDServer
             }
         }
 
+        //prints description of room players are in
         public String RoomDescription(Socket client)
         { 
             var command = new sqliteCommand("select * from  table_rooms where name == '" + socketToRoomLookup[client].name + "'", conn);
@@ -367,6 +378,7 @@ namespace MUDServer
 
             var players = 0;
 
+            //for each player in room players + 1
             foreach (var kvp in socketToRoomLookup)
             {
                 if ((kvp.Key != client)
@@ -376,7 +388,7 @@ namespace MUDServer
                     players++;
                 }
             }
-
+            //if players more than 1 print 
             if (players > 0)
             {
                 desc += "\n";
